@@ -1,7 +1,11 @@
 뇌파 직중력을 이용한 게임
 =====================
 #### 득도 html canvas game
-
+사용기술
+1. angular
+2. reactivex
+3. typescript
+4. html
 <br/><br/>
 
 ## run
