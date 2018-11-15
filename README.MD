@@ -155,7 +155,7 @@ document, review
             ...
           }
           ```
-      2. 라이플 사이클
+      2. 라이프 사이클
          ```
           abstract onCreate(data?: any);
           abstract onDestroy(data?: any);
