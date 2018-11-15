@@ -1,12 +1,11 @@
 import {Subscription} from 'rxjs/Subscription';
 import {DroneResourceManager} from '../../DroneResourceManager';
 import {DroneStage} from '../../stage/DroneStage';
-import {DroneStageGame} from '../../stage/DroneStageGame';
 import {DroneStageEvent} from '../../stage/DronStageEvent';
 import {ObjDrone} from '../ObjDrone';
 import {Info} from '../../info/Info';
-import {PointVector} from '../../../../../../../../../lib-typescript/com/omnicns/math/PointVector';
-import {ValidUtil} from '../../../../../../../../../lib-typescript/com/omnicns/valid/ValidUtil';
+import {PointVector} from '../../../../../../../../../lib-typescript/com/khh/math/PointVector';
+import {ValidUtil} from '../../../../../../../../../lib-typescript/com/khh/valid/ValidUtil';
 import {Room} from '../../domain/Room';
 
 export class Score extends ObjDrone {
@@ -30,8 +29,6 @@ export class Score extends ObjDrone {
   onDraw(context: CanvasRenderingContext2D): void {
     let headsetConcentration = this.status === 'run' || this.status === 'end' ? this.headsetConcentration : 0;
     headsetConcentration = Math.min(9, headsetConcentration);
-    // context.translate(50, 50);
-    // context.scale(0.7, 0.7);
     const bageX = 20;
     const bageY = 20;
     const gageBg = DroneResourceManager.getInstance().resources('gage_bgImg');
@@ -114,10 +111,6 @@ export class Score extends ObjDrone {
       this.headsetConcentration = concentration.headsetConcentration || 0;
       const history = concentration.headsetConcentrationHistory || new Array<number>();
       history.forEach( (it) => it >= 9 ? this.finishCnt-- : this.finishCnt = Info.FINISH_CNT);
-      // this.score += Number(concentration.headsetConcentration);
-      // if (DroneStageManager.getInstance().webSocket.readyState === WebSocket.OPEN) {
-      //   DroneStageManager.getInstance().webSocketSubject.next(new Telegram<any>('profile', 'put', {score: this.score}));
-      // }
     });
 
   }

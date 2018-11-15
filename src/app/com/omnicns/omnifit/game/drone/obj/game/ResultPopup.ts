@@ -3,14 +3,13 @@ import {DeviceManager} from '../../../../drive/DeviceManager';
 import {DroneResourceManager} from '../../DroneResourceManager';
 import {DroneStageManager} from '../../DroneStageManager';
 import {DroneStage} from '../../stage/DroneStage';
-import {DroneStageEvent} from '../../stage/DronStageEvent';
 import {ObjDrone} from '../ObjDrone';
-import {PointVector} from '../../../../../../../../../lib-typescript/com/omnicns/math/PointVector';
-import {Rect} from '../../../../../../../../../lib-typescript/com/omnicns/graphics/Rect';
-import {ValidUtil} from '../../../../../../../../../lib-typescript/com/omnicns/valid/ValidUtil';
+import {PointVector} from '../../../../../../../../../lib-typescript/com/khh/math/PointVector';
+import {Rect} from '../../../../../../../../../lib-typescript/com/khh/graphics/Rect';
+import {ValidUtil} from '../../../../../../../../../lib-typescript/com/khh/valid/ValidUtil';
 import {Room} from '../../domain/Room';
 import {Info} from '../../info/Info';
-import {CollectionUtil} from '../../../../../../../../../lib-typescript/com/omnicns/collection/CollectionUtil';
+import {CollectionUtil} from '../../../../../../../../../lib-typescript/com/khh/collection/CollectionUtil';
 import {UserHostCode} from '../../code/UserHostCode';
 
 export interface UserResult {

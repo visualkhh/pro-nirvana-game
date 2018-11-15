@@ -1,11 +1,9 @@
 import {Subscription} from 'rxjs/Subscription';
-import {DroneResourceManager} from '../../DroneResourceManager';
 import {DroneStage} from '../../stage/DroneStage';
-import {DroneStageGame} from '../../stage/DroneStageGame';
 import {DroneStageEvent} from '../../stage/DronStageEvent';
 import {ObjDrone} from '../ObjDrone';
 import {Room} from '../../domain/Room';
-import {ValidUtil} from '../../../../../../../../../lib-typescript/com/omnicns/valid/ValidUtil';
+import {ValidUtil} from '../../../../../../../../../lib-typescript/com/khh/valid/ValidUtil';
 import {Info} from '../../info/Info';
 
 export class Alarm extends ObjDrone {

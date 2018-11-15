@@ -3,10 +3,9 @@ import {DroneResourceManager} from '../../DroneResourceManager';
 import {DroneStageManager} from '../../DroneStageManager';
 import {DroneStage} from '../../stage/DroneStage';
 import {ObjDrone} from '../ObjDrone';
-import {Rect} from '../../../../../../../../../lib-typescript/com/omnicns/graphics/Rect';
-import {MathUtil} from '../../../../../../../../../lib-typescript/com/omnicns/math/MathUtil';
-import {ValidUtil} from '../../../../../../../../../lib-typescript/com/omnicns/valid/ValidUtil';
-import {timer} from 'rxjs/observable/timer';
+import {Rect} from '../../../../../../../../../lib-typescript/com/khh/graphics/Rect';
+import {MathUtil} from '../../../../../../../../../lib-typescript/com/khh/math/MathUtil';
+import {ValidUtil} from '../../../../../../../../../lib-typescript/com/khh/valid/ValidUtil';
 
 export class IntroPopup extends ObjDrone {
   private mousedownSubscription: Subscription;
@@ -44,7 +43,6 @@ export class IntroPopup extends ObjDrone {
     if (!ValidUtil.isNullOrUndefined(this.introPopup)) {
       context.drawImage(this.introPopup, (this.stage.width / 2) - this.introPopup.width / 2, (this.stage.height / 2) - this.introPopup.height / 2);
     }
-    // if ((new Date().getSeconds() % 2) / 0.5) {
     if (Math.floor(new Date().getMilliseconds() / 500)) {
       context.drawImage(this.img, this.x, this.y);
     }
@@ -55,13 +53,9 @@ export class IntroPopup extends ObjDrone {
       // console.log('--' + event.offsetX + ',' + event.offsetY + '   ' + this.hitArea.contains(event.offsetX, event.offsetY) + this.hitArea);
       if (ValidUtil.isNullOrUndefined(this.introPopup)) {
         this.introPopup = DroneResourceManager.getInstance().resources('intro_popupImg');
-      }else if (!ValidUtil.isNullOrUndefined(this.introPopup)) {
+      } else if (!ValidUtil.isNullOrUndefined(this.introPopup)) {
         DroneStageManager.getInstance().nextStage();
       }
-
-      // if (!ValidUtil.isNullOrUndefined(this.hitArea) && this.hitArea.contains(event.offsetX, event.offsetY) ) {
-      //    DroneStageManager.getInstance().nextStage();
-      // }
     });
   }
 

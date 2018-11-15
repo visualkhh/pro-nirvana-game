@@ -1,5 +1,4 @@
-import {LifeCycle} from '../../../../../../../lib-typescript/com/omnicns/event/life/LifeCycle';
-// import {Observable} from 'rxjs/Observable';
+import {LifeCycle} from '../../../../../../../lib-typescript/com/khh/event/life/LifeCycle';
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/observable/throw';
 
@@ -8,8 +7,6 @@ export class DroneResourceManager implements LifeCycle {
 
   private _resources: Map<string, any>;
 
-//singletone pattern
-  //https://basarat.gitbooks.io/typescript/docs/tips/singleton.html
   static getInstance() {
     if (!DroneResourceManager.instance) {
       DroneResourceManager.instance = new DroneResourceManager();

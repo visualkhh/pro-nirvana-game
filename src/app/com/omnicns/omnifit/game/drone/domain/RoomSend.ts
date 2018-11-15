@@ -1,4 +1,4 @@
 export class RoomSend {
-    name: string = '';
-    msg: string = '';
+    name = '';
+    msg = '';
 }

@@ -1,14 +1,9 @@
 import 'rxjs/add/observable/interval';
-// import 'rxjs/operators/distinctUntilChanged';
 import 'rxjs/add/operator/distinctUntilChanged';
-// import 'rxjs/operator/merge';
 import 'rxjs/add/operator/merge';
-// import {Observable} from 'rxjs/Rx';
 import {Observable} from 'rxjs/Observable';
 import {Subscription} from 'rxjs/Subscription';
 import {DroneStageManager} from '../game/drone/DroneStageManager';
-// import 'rxjs/add/operator/groupBy';
-// import 'rxjs/add/operator/mergeAll';
 
 export class DeviceManager {
 
@@ -59,42 +54,42 @@ export class DeviceManager {
   public onCreate(data?: any) { //	called when activity is first created.
     if (window['omnigame'] && window['omnigame'].onCreate) {
       window['omnigame'].onCreate(data);
-    }else if (window['webkit'] && window['webkit'].messageHandlers && window['webkit'].messageHandlers.onCreate) {
+    } else if (window['webkit'] && window['webkit'].messageHandlers && window['webkit'].messageHandlers.onCreate) {
       window['webkit'].messageHandlers.onCreate.postMessage(data);
     }
   }
   public onStart(data?: any) { //	called when activity is becoming visible to the user.
     if (window['omnigame'] && window['omnigame'].onStart) {
       window['omnigame'].onStart(data);
-    }else if (window['webkit'] && window['webkit'].messageHandlers && window['webkit'].messageHandlers.onStart) {
+    } else if (window['webkit'] && window['webkit'].messageHandlers && window['webkit'].messageHandlers.onStart) {
       window['webkit'].messageHandlers.onStart.postMessage(data);
     }
   }
   public onResume(data?: any) { //	called when activity will start interacting with the user.
     if (window['omnigame'] && window['omnigame'].onResume) {
       window['omnigame'].onResume(data);
-    }else if (window['webkit'] && window['webkit'].messageHandlers && window['webkit'].messageHandlers.onResume) {
+    } else if (window['webkit'] && window['webkit'].messageHandlers && window['webkit'].messageHandlers.onResume) {
       window['webkit'].messageHandlers.onResume.postMessage(data);
     }
   }
   public onPause(data?: any) { //	called when activity is not visible to the user.
     if (window['omnigame'] && window['omnigame'].onPause) {
       window['omnigame'].onPause(data);
-    }else if (window['webkit'] && window['webkit'].messageHandlers && window['webkit'].messageHandlers.onPause) {
+    } else if (window['webkit'] && window['webkit'].messageHandlers && window['webkit'].messageHandlers.onPause) {
       window['webkit'].messageHandlers.onPause.postMessage(data);
     }
   }
   public onStop(data?: any) { //	called when activity is no longer visible to the user.
     if (window['omnigame'] && window['omnigame'].onStop) {
       window['omnigame'].onStop(data);
-    }else if (window['webkit'] && window['webkit'].messageHandlers && window['webkit'].messageHandlers.onStop) {
+    } else if (window['webkit'] && window['webkit'].messageHandlers && window['webkit'].messageHandlers.onStop) {
       window['webkit'].messageHandlers.onStop.postMessage(data);
     }
   }
   public onRestart(data?: any) { //	called after your activity is stopped, prior to start.
     if (window['omnigame'] && window['omnigame'].onRestart) {
       window['omnigame'].onRestart(data);
-    }else if (window['webkit'] && window['webkit'].messageHandlers && window['webkit'].messageHandlers.onRestart) {
+    } else if (window['webkit'] && window['webkit'].messageHandlers && window['webkit'].messageHandlers.onRestart) {
       window['webkit'].messageHandlers.onRestart.postMessage(data);
     }
   }
@@ -114,7 +109,7 @@ export class DeviceManager {
   public onDestroy(data?: any) { //	called before the activity is destroyed.
     if (window['omnigame'] && window['omnigame'].onDestroy) {
       window['omnigame'].onDestroy(data);
-    }else if (window['webkit'] && window['webkit'].messageHandlers && window['webkit'].messageHandlers.onDestroy) {
+    } else if (window['webkit'] && window['webkit'].messageHandlers && window['webkit'].messageHandlers.onDestroy) {
       window['webkit'].messageHandlers.onDestroy.postMessage(data);
     }
   }
@@ -124,7 +119,7 @@ export class DeviceManager {
     if (window['omnigame'] && window['omnigame'][fncName]) {
       console.log('android Device onCall fncName:' + fncName + ', data:' + data);
       window['omnigame'][fncName](data);
-    }else if (window['webkit'] && window['webkit'].messageHandlers && window['webkit'].messageHandlers[fncName]) {
+    } else if (window['webkit'] && window['webkit'].messageHandlers && window['webkit'].messageHandlers[fncName]) {
       console.log('ios Device onCall fncName:' + fncName + ', data:' + data);
       window['webkit'].messageHandlers[fncName].postMessage(data);
     }

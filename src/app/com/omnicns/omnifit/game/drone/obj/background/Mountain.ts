@@ -1,17 +1,13 @@
-import {Subscription} from 'rxjs/Subscription';
-import {DeviceManager} from '../../../../drive/DeviceManager';
 import {DroneStage} from '../../stage/DroneStage';
-import {ObjDrone} from '../ObjDrone';
 import {MoveImg} from '../comm/MoveImg';
-import {PointVector} from '../../../../../../../../../lib-typescript/com/omnicns/math/PointVector';
-import {RandomUtil} from '../../../../../../../../../lib-typescript/com/omnicns/random/RandomUtil';
+import {PointVector} from '../../../../../../../../../lib-typescript/com/khh/math/PointVector';
+import {RandomUtil} from '../../../../../../../../../lib-typescript/com/khh/random/RandomUtil';
 
 export class Mountain extends MoveImg  {
 
   constructor(stage: DroneStage, x: number, y: number, z: number, img?: HTMLImageElement) {
     super(stage, x, y, z, img);
     this.imgAlign = 'center';
-    // this.imgBaseline = 'middle';
     this.imgBaseline = 'bottom';
   }
 

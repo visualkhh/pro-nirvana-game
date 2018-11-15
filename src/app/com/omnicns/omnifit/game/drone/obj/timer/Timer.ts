@@ -3,12 +3,11 @@ import {DroneResourceManager} from '../../DroneResourceManager';
 import {DroneStage} from '../../stage/DroneStage';
 import {DroneStageEvent} from '../../stage/DronStageEvent';
 import {ObjDrone} from '../ObjDrone';
-import {Score} from '../score/Score';
-import {PointVector} from '../../../../../../../../../lib-typescript/com/omnicns/math/PointVector';
-import {RandomUtil} from '../../../../../../../../../lib-typescript/com/omnicns/random/RandomUtil';
+import {PointVector} from '../../../../../../../../../lib-typescript/com/khh/math/PointVector';
+import {RandomUtil} from '../../../../../../../../../lib-typescript/com/khh/random/RandomUtil';
 import {Room} from '../../domain/Room';
 import {Info} from '../../info/Info';
-import {ValidUtil} from '../../../../../../../../../lib-typescript/com/omnicns/valid/ValidUtil';
+import {ValidUtil} from '../../../../../../../../../lib-typescript/com/khh/valid/ValidUtil';
 import {RoomStatusCode} from '../../code/RoomStatusCode';
 
 export class Timer extends ObjDrone {
@@ -36,20 +35,9 @@ export class Timer extends ObjDrone {
 
     this.x = this.stage.width / 2;
     this.y = this.stage.height / 2;
-    const imgStartX = this.x - tw;
-    const imgStartY = this.y - th;
-    const imgEndX = this.x + this.img.width + tw ;
-    const imgEndY = this.y + this.img.height + th ;
 
-    // context.fillStyle = 'blue';
-    // context.fillText(this.btnText, this.stage.width / 2, this.stage.height / 2);
-    //
     context.save();
     context.strokeStyle = '#000000';
-    // context.shadowColor = '#000000';
-    // context.shadowOffsetX = -1;
-    // context.shadowOffsetY = -1;
-    // context.font = 'bold  ' + fontPT + 'pt Multicolore';
     context.font = fontPT + 'pt Multicolore';
     context.textAlign = 'center';
     context.textBaseline = 'middle' ;
@@ -74,9 +62,6 @@ export class Timer extends ObjDrone {
       if (room.endCnt < Info.END_CNT) {
         this.btnText = '';
       }
-      // if (room.startCnt === 8) {
-      //   DroneResourceManager.getInstance().resources('applauseSound').play();
-      // }
       if (room.status === RoomStatusCode.RUN && room.endCnt === Info.END_CNT - 1) {
         DroneResourceManager.getInstance().resources('startSound').play();
       }

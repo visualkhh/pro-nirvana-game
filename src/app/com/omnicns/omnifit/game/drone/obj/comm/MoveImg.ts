@@ -1,12 +1,9 @@
-import {Subscription} from 'rxjs/Subscription';
-import {DeviceManager} from '../../../../drive/DeviceManager';
 import {DroneStage} from '../../stage/DroneStage';
 import {ObjDrone} from '../ObjDrone';
-import {PointVector} from '../../../../../../../../../lib-typescript/com/omnicns/math/PointVector';
-import {RandomUtil} from '../../../../../../../../../lib-typescript/com/omnicns/random/RandomUtil';
+import {PointVector} from '../../../../../../../../../lib-typescript/com/khh/math/PointVector';
+import {RandomUtil} from '../../../../../../../../../lib-typescript/com/khh/random/RandomUtil';
 
 export abstract class MoveImg extends ObjDrone {
-  // private position: PointVector;
   private velocity: PointVector;
   private acceleration: PointVector;
   private accelerationStep: PointVector;
@@ -41,24 +38,6 @@ export abstract class MoveImg extends ObjDrone {
       this.velocity.y = 0;
     }
 
-    // context.textAlign = 'center';
-    // context.textBaseline = 'middle';
-
-    // let x = this.x;
-    // let y = this.y;
-    // //https://www.w3schools.com/tags/tryit.asp?filename=tryhtml5_canvas_textalign
-    // if (this.imgAlign === 'center') {
-    //   x = this.x - (this.img.width / 2);
-    // }
-    // //https://www.w3schools.com/tags/tryit.asp?filename=tryhtml5_canvas_textbaseline
-    // if (this.imgBaseline === 'middle') {
-    //   y = this.y - (this.img.height / 2);
-    // }else if (this.imgBaseline === 'hanging') {
-    //   y = this.y;
-    // }else if (this.imgBaseline === 'bottom') {
-    //   y = this.y - (this.img.height);
-    // }
-    // context.drawImage(this.img, x, y);
     this.drawImage(context, this.img);
   }
 

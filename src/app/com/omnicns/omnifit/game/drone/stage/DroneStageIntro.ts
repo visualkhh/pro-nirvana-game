@@ -5,7 +5,7 @@ import {DroneResourceManager} from '../DroneResourceManager';
 import {DroneStageManager} from '../DroneStageManager';
 import {ObjDrone} from '../obj/ObjDrone';
 import {DroneStage} from './DroneStage';
-import {ValidUtil} from '../../../../../../../../lib-typescript/com/omnicns/valid/ValidUtil';
+import {ValidUtil} from '../../../../../../../../lib-typescript/com/khh/valid/ValidUtil';
 import {DeviceManager} from '../../../drive/DeviceManager';
 
 //websocket https://tutorialedge.net/typescript/angular/angular-websockets-tutorial/

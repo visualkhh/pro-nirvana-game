@@ -2,11 +2,11 @@ import {Observable} from 'rxjs/Observable';
 import {interval} from 'rxjs/observable/interval';
 import {Subscription} from 'rxjs/Subscription';
 import {ObjDrone} from '../obj/ObjDrone';
-import {Stage} from '../../../../../../../../lib-typescript/com/omnicns/stage/Stage';
-import {LifeCycle} from '../../../../../../../../lib-typescript/com/omnicns/event/life/LifeCycle';
-import {ViewInterface} from '../../../../../../../../lib-typescript/com/omnicns/graphics/view/ViewInterface';
-import {CollectionUtil} from '../../../../../../../../lib-typescript/com/omnicns/collection/CollectionUtil';
-import {ValidUtil} from '../../../../../../../../lib-typescript/com/omnicns/valid/ValidUtil';
+import {Stage} from '../../../../../../../../lib-typescript/com/khh/stage/Stage';
+import {LifeCycle} from '../../../../../../../../lib-typescript/com/khh/event/life/LifeCycle';
+import {ViewInterface} from '../../../../../../../../lib-typescript/com/khh/graphics/view/ViewInterface';
+import {CollectionUtil} from '../../../../../../../../lib-typescript/com/khh/collection/CollectionUtil';
+import {ValidUtil} from '../../../../../../../../lib-typescript/com/khh/valid/ValidUtil';
 
 export abstract class DroneStage extends Stage implements LifeCycle, ViewInterface {
 
@@ -53,7 +53,7 @@ export abstract class DroneStage extends Stage implements LifeCycle, ViewInterfa
   pushObj(obj: ObjDrone| ObjDrone[]) {
     if (obj instanceof Array) {
       obj.forEach((it) => this.objs.push(it));
-    }else {
+    } else {
       this.objs.push(obj);
     }
   }

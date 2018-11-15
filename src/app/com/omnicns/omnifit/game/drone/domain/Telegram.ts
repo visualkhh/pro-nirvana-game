@@ -1,7 +1,7 @@
 // import WebSocket = require('ws');
 import {TelegramStatusCode} from '../code/TelegramStatusCode';
-import {ValidUtil} from '../../../../../../../../lib-typescript/com/omnicns/valid/ValidUtil';
-import {RandomUtil} from '../../../../../../../../lib-typescript/com/omnicns/random/RandomUtil';
+import {ValidUtil} from '../../../../../../../../lib-typescript/com/khh/valid/ValidUtil';
+import {RandomUtil} from '../../../../../../../../lib-typescript/com/khh/random/RandomUtil';
 
 export class Telegram<T> {
     public uuid;
@@ -21,23 +21,5 @@ export class Telegram<T> {
             this.uuid = uuid;
         }
     }
-
-    // lift<R>(operator: Operator<T, R>): Observable<R> {
-    //     const observable = new Observable<R>();
-    //     observable.source = this;
-    //     observable.operator = operator;
-    //     return observable;
-    // }
-    // public getBody(): T | undefined {
-    //     if (!ValidUtil.isNullOrUndefined(this.body)){
-    //         return this.body as T;
-    //     }
-    // //     return ConvertUtil.strToObject(String(this.body));
-    //     // if (ValidUtil.isString(this.body)){
-    //     //     return ConvertUtil.strToObject(String(this.body))
-    //     // }else {
-    //     //     return this.body
-    //     // }
-    // }
 
 }

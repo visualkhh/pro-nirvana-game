@@ -1,4 +1,4 @@
 export class User {
-    name: string = '';
-    age: number = 0;
+    name = '';
+    age = 0;
 }

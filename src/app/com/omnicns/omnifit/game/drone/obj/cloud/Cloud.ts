@@ -1,26 +1,19 @@
 import {Subscription} from 'rxjs/Subscription';
 import {DroneStage} from '../../stage/DroneStage';
 import {ObjDrone} from '../ObjDrone';
-import {ValidUtil} from '../../../../../../../../../lib-typescript/com/omnicns/valid/ValidUtil';
-import {RandomUtil} from '../../../../../../../../../lib-typescript/com/omnicns/random/RandomUtil';
-import {MathUtil} from '../../../../../../../../../lib-typescript/com/omnicns/math/MathUtil';
-
-// import { Point } from '../org/Point';
+import {ValidUtil} from '../../../../../../../../../lib-typescript/com/khh/valid/ValidUtil';
+import {RandomUtil} from '../../../../../../../../../lib-typescript/com/khh/random/RandomUtil';
+import {MathUtil} from '../../../../../../../../../lib-typescript/com/khh/math/MathUtil';
 export class Cloud extends ObjDrone {
 
-  private maxX = 50;
-  private currentX = 0;
   private resizeSubscription: Subscription;
   constructor(stage: DroneStage, x: number, y: number, z: number, img?: HTMLImageElement) {
     super(stage, x, y, z, img);
-    // console.log('cccccccc');
   }
 
   onDraw(context: CanvasRenderingContext2D): void {
     this.x += this.mass;
     context.drawImage(this.img, this.x, this.y);
-    // console.log('onDraw ' + this.img);
-
     //checkEdges
     if (this.x > this.stage.width) {
       this.initSetting();

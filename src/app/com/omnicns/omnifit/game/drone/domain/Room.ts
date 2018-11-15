@@ -1,5 +1,5 @@
 import {Info} from '../info/Info';
-import {ValidUtil} from '../../../../../../../../lib-typescript/com/omnicns/valid/ValidUtil';
+import {ValidUtil} from '../../../../../../../../lib-typescript/com/khh/valid/ValidUtil';
 
 export class Room<T> {
 

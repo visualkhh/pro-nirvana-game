@@ -4,7 +4,7 @@ import {Subject} from 'rxjs/Subject';
 import {ObjDrone} from './obj/ObjDrone';
 import {DroneStage} from './stage/DroneStage';
 import {Telegram} from './domain/Telegram';
-import {ValidUtil} from '../../../../../../../lib-typescript/com/omnicns/valid/ValidUtil';
+import {ValidUtil} from '../../../../../../../lib-typescript/com/khh/valid/ValidUtil';
 
 export class DroneStageManager extends DroneStage {
 
@@ -14,7 +14,6 @@ export class DroneStageManager extends DroneStage {
   private stages: DroneStage[];
   private _webSocket: WebSocket;
   private _webSocketSubject: Subject<Telegram<any>>;
-  // private clockSubscription: Subscription;
 
   //singletone pattern
   //https://basarat.gitbooks.io/typescript/docs/tips/singleton.html
@@ -29,7 +28,6 @@ export class DroneStageManager extends DroneStage {
     super(canvas, objs);
     // this.clockInterval = 10;
     this.stages = new Array<DroneStage>();
-    // this._webSocket = new WebSocket('ws://192.168.13.58:8999');
     this._webSocket = new WebSocket('ws://119.206.205.171:8999');
     const observable = Observable.create((obs: Observer<MessageEvent>) => {
         this._webSocket.onmessage = obs.next.bind(obs);

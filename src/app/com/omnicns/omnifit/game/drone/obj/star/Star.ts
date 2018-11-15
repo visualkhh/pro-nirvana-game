@@ -1,11 +1,10 @@
 import {Subscription} from 'rxjs/Subscription';
 import {DroneStage} from '../../stage/DroneStage';
 import {ObjDrone} from '../ObjDrone';
-import {ValidUtil} from '../../../../../../../../../lib-typescript/com/omnicns/valid/ValidUtil';
-import {RandomUtil} from '../../../../../../../../../lib-typescript/com/omnicns/random/RandomUtil';
-import {MathUtil} from '../../../../../../../../../lib-typescript/com/omnicns/math/MathUtil';
+import {ValidUtil} from '../../../../../../../../../lib-typescript/com/khh/valid/ValidUtil';
+import {RandomUtil} from '../../../../../../../../../lib-typescript/com/khh/random/RandomUtil';
+import {MathUtil} from '../../../../../../../../../lib-typescript/com/khh/math/MathUtil';
 
-// import { Point } from '../org/Point';
 export class Star extends ObjDrone {
 
   private currentX = 0;

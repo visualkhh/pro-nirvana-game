@@ -4,11 +4,11 @@ import {DroneStage} from '../../stage/DroneStage';
 import {DroneStageEvent} from '../../stage/DronStageEvent';
 import {ObjDrone} from '../ObjDrone';
 import {Score} from '../score/Score';
-import {PointVector} from '../../../../../../../../../lib-typescript/com/omnicns/math/PointVector';
+import {PointVector} from '../../../../../../../../../lib-typescript/com/khh/math/PointVector';
 import {Info} from '../../info/Info';
-import {RandomUtil} from '../../../../../../../../../lib-typescript/com/omnicns/random/RandomUtil';
+import {RandomUtil} from '../../../../../../../../../lib-typescript/com/khh/random/RandomUtil';
 import {Room} from '../../domain/Room';
-import {ValidUtil} from '../../../../../../../../../lib-typescript/com/omnicns/valid/ValidUtil';
+import {ValidUtil} from '../../../../../../../../../lib-typescript/com/khh/valid/ValidUtil';
 
 export class Drone extends ObjDrone {
   private _name: string;
@@ -76,43 +76,6 @@ export class Drone extends ObjDrone {
       this.y = targetPosition.y;
     }
 
-    // const gap = oldPosition.y - this.y;
-    // // console.log('--'+ Math.abs(gap))
-    // if (gap < 0 && Math.abs(gap) > 2) {
-    //   this.img = DroneResourceManager.getInstance().resources('character_03Img');
-    // } else if (gap > 0 && Math.abs(gap) > 2) {
-    //   this.img = DroneResourceManager.getInstance().resources('character_01Img');
-    // } else {
-    //   this.img = DroneResourceManager.getInstance().resources('character_02Img');
-    // }
-    // if (this.beforeConcentration < this.concentration) {
-    //   this.img = DroneResourceManager.getInstance().resources('character_01Img');
-    // }else if (this.beforeConcentration > this.concentration) {
-    //   const img = DroneResourceManager.getInstance().resources('character_03Img');
-    //   if (img.src !== this.img.src) {
-    //     this.velocity.mult(0);
-    //   }
-    //   this.img = img;
-    //   //this.velocity.mult(0);
-    //   // if (this.velocity.y > 0) {
-    //   // }
-    // }else {
-    //   this.img = DroneResourceManager.getInstance().resources('character_02Img');
-    // }
-
-    //checkEdges
-    // if (this.x > this.stage.width) {
-    //   this.x = 0;
-    // } else if (this.x < 0) {
-    //   this.x = this.stage.width;
-    // }
-    //
-    // if (this.y > this.stage.height) {
-    //   this.y = 0;
-    // } else if (this.y < 0) {
-    //   this.y = this.stage.height;
-    // }
-
     //bg
     const bgImg = DroneResourceManager.getInstance().resources('character_right_bgImg');
     const bgImgX = this.x - (bgImg.width / 2);
@@ -127,26 +90,26 @@ export class Drone extends ObjDrone {
       const effectImgY = this.y - (effectImg.height / 2) + (this.img.height / 2);
       this.img = this.upCharacte(this.name);
       context.drawImage(effectImg, effectImgX, effectImgY);
-    }else if (finishCnt >= Info.FINISH_CNT && targetPosition.y > this.y) {//내려가기
+    } else if (finishCnt >= Info.FINISH_CNT && targetPosition.y > this.y) {//내려가기
       const effectImg = DroneResourceManager.getInstance().resources('effect_character03Img');
       const effectImgX = this.x - (effectImg.width / 2);
       const effectImgY = this.y - (effectImg.height);
       context.drawImage(effectImg, effectImgX, effectImgY);
       this.img = this.downCharacte(this.name);
-    }else if (finishCnt >= Info.FINISH_CNT) {
+    } else if (finishCnt >= Info.FINISH_CNT) {
       //일반모습
       if (concentration === 8) {
         this.img = this.wingCharacte(this.name);
-      }else {
+      } else {
         this.img = this.normalCharacte(this.name);
       }
-    }else if (finishCnt === 1) { //날개 후광
+    } else if (finishCnt === 1) { //날개 후광
       const effectImg = DroneResourceManager.getInstance().resources('effect_character04_3Img');
       const effectImgX = this.x - (effectImg.width / 2);
       const effectImgY = this.y - (effectImg.height / 2);
       context.drawImage(effectImg, effectImgX, effectImgY);
       this.img = this.wingCharacte(this.name);
-    }else if (finishCnt <= 0) { //날개 후광 득도
+    } else if (finishCnt <= 0) { //날개 후광 득도
       const effectImg = DroneResourceManager.getInstance().resources('effect_character04_3Img');
       const effectImgX = this.x - (effectImg.width / 2);
       const effectImgY = this.y - (effectImg.height / 2);
@@ -189,7 +152,7 @@ export class Drone extends ObjDrone {
     this.score.showBadge = false;
     this.score.onDraw(context);
     this.stage.resetContext(context);
-    }else if ('host' === this.host) {
+    } else if ('host' === this.host) {
       const arrowImg = DroneResourceManager.getInstance().resources('ranking_shape_02_arrowImg');
       context.drawImage(arrowImg, this.x - (arrowImg.width / 2), imgY - 4);
     }
@@ -292,14 +255,4 @@ export class Drone extends ObjDrone {
     }
     return img;
   }
-  // /** @deprecated */
-  // public setConcentration(concentration: number): void {
-  //   this.beforeConcentration = this.concentration;
-  //   this.concentration = concentration;
-  //   if (this.beforeConcentration >= 9 && this.concentration >= 9 ) {
-  //     this.FINISH_CNT--;
-  //   }else {
-  //     this.FINISH_CNT = 3;
-  //   }
-  // }
 }

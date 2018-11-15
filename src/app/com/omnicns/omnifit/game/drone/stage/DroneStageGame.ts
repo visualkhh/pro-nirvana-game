@@ -23,12 +23,12 @@ import {Room} from '../domain/Room';
 import {Telegram} from '../domain/Telegram';
 import {UserHostCode} from '../code/UserHostCode';
 import {Info} from '../info/Info';
-import {CollectionUtil} from '../../../../../../../../lib-typescript/com/omnicns/collection/CollectionUtil';
-import {ValidUtil} from '../../../../../../../../lib-typescript/com/omnicns/valid/ValidUtil';
+import {CollectionUtil} from '../../../../../../../../lib-typescript/com/khh/collection/CollectionUtil';
+import {ValidUtil} from '../../../../../../../../lib-typescript/com/khh/valid/ValidUtil';
 import {Character} from '../info/Character';
 import {RoomStatusCode} from '../code/RoomStatusCode';
-import {PointVector} from '../../../../../../../../lib-typescript/com/omnicns/math/PointVector';
-import {RandomUtil} from '../../../../../../../../lib-typescript/com/omnicns/random/RandomUtil';
+import {PointVector} from '../../../../../../../../lib-typescript/com/khh/math/PointVector';
+import {RandomUtil} from '../../../../../../../../lib-typescript/com/khh/random/RandomUtil';
 
 //공기 및 유체 저항
 //https://ko.khanacademy.org/computing/computer-programming/programming-natural-simulations/programming-forces/a/air-and-fluid-resistance
@@ -99,7 +99,7 @@ export class DroneStageGame extends DroneStage {
       let at = (this.headsetConcentration || 0);
       if ('ArrowUp' === e.key) {
         at++;
-      }else if ('ArrowDown' === e.key) {
+      } else if ('ArrowDown' === e.key) {
         at--;
       }
       at = Math.min(9, at);
@@ -116,7 +116,7 @@ export class DroneStageGame extends DroneStage {
       }
     });
 
-    //online offline
+    //online
     if (DroneStageManager.getInstance().webSocket.readyState === WebSocket.OPEN) {
       const joinTelegram = new Telegram<any>('rooms/join', 'put');
       DroneStageManager.getInstance().webSocketSubject.next(joinTelegram);
@@ -142,7 +142,7 @@ export class DroneStageGame extends DroneStage {
             }
             if (UserHostCode.HOST === it.host) {
               this.hostDroneId = it.uuid;
-            }else if (UserHostCode.OTHER === it.host) {
+            } else if (UserHostCode.OTHER === it.host) {
             }
             wjump += wjumpSize;
             drone.initX = wjump;
@@ -150,8 +150,8 @@ export class DroneStageGame extends DroneStage {
           });
         });
       });
-
-    }else {
+    //offline
+    } else {
       this.hostDroneId = 'local';
       this.pushDroneOnCreateStart(this.hostDroneId, UserHostCode.HOST, Character.DO);
       this.room.users = [{uuid: this.hostDroneId, name: Character.DO, host: UserHostCode.HOST, headsetConcentrationHistory: this.headsetConcentrationHistory, headsetConcentration: this.headsetConcentration}];
@@ -160,7 +160,7 @@ export class DroneStageGame extends DroneStage {
         if (this.room.startCnt > 0) {
           this.room.startCnt = (--this.room.startCnt);
           this.room.status = RoomStatusCode.WAIT;
-        }else if (this.room.startCnt <= 0 && this.room.endCnt > 0) {
+        } else if (this.room.startCnt <= 0 && this.room.endCnt > 0) {
           if (this.room.status === RoomStatusCode.WAIT) { // 처음 카운트 다운끝나고 RUN
             DeviceManager.getInstance().on('onGameStart', 0);
           }
@@ -169,7 +169,7 @@ export class DroneStageGame extends DroneStage {
           }
           this.room.endCnt = (--this.room.endCnt);
           this.room.status = RoomStatusCode.RUN;
-        }else if (this.room.startCnt <= 0 && this.room.endCnt <= 0) {
+        } else if (this.room.startCnt <= 0 && this.room.endCnt <= 0) {
           if (this.isGameEnd === false) {
             DeviceManager.getInstance().on('onGameEnd', this.headsetConcentrationHistory.reduce((a, b) => a + b, 0));
             this.isGameEnd = true;
@@ -226,7 +226,6 @@ export class DroneStageGame extends DroneStage {
   }
 
   eventObservable(eventName: string): Observable<any> {
-    // return this.eventSubscribes.get(eventName).subscribe(next, error, complete);
     return this.eventSubscribes.get(eventName);
   }
   pushResultPopupOnCreateStart(room: Room<any>): ResultPopup {
@@ -259,9 +258,6 @@ export class DroneStageGame extends DroneStage {
 
   onDestroy(data?: any) {
     this.objs.forEach((it) => it.onDestroy(data));
-    // if (!ValidUtil.isNullOrUndefined(this.audio)) {
-    //   this.audio.pause();
-    // }
   }
 
   onPause(data?: any) {

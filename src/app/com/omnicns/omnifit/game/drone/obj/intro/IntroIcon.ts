@@ -1,7 +1,7 @@
 import {DroneStage} from '../../stage/DroneStage';
 import {MoveImg} from '../comm/MoveImg';
-import {PointVector} from '../../../../../../../../../lib-typescript/com/omnicns/math/PointVector';
-import {RandomUtil} from '../../../../../../../../../lib-typescript/com/omnicns/random/RandomUtil';
+import {PointVector} from '../../../../../../../../../lib-typescript/com/khh/math/PointVector';
+import {RandomUtil} from '../../../../../../../../../lib-typescript/com/khh/random/RandomUtil';
 
 export class IntroIcon extends MoveImg {
 
@@ -16,9 +16,7 @@ export class IntroIcon extends MoveImg {
   }
 
   targetPosition(): PointVector {
-    // return super.targetPosition();
     return new PointVector((this.stage.width / 2) , (this.stage.height / 2));
-    // return new PointVector(0, 0);
   }
 
 }

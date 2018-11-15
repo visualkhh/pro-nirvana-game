@@ -1,10 +1,6 @@
 import {DroneStage} from '../../stage/DroneStage';
 import {ObjDrone} from '../ObjDrone';
-
-// import { Point } from '../org/Point';
 export class BackGround extends ObjDrone {
-
-  private currentX = 0;
 
   constructor(stage: DroneStage, x: number = 0, y: number = 0, z: number = 0, img?: HTMLImageElement) {
     super(stage, x, y, z, img);
