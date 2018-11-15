@@ -8,7 +8,7 @@
 4. html
 <br/><br/>  
 youtube  
-[![Alt text](https://img.youtube.com/vi/fOx0XzVCPc8/1.jpg)](https://www.youtube.com/watch?v=fOx0XzVCPc8)  
+[![Alt text](https://img.youtube.com/vi/fOx0XzVCPc8/0.jpg)](https://www.youtube.com/watch?v=fOx0XzVCPc8)  
 https://www.youtube.com/watch?v=fOx0XzVCPc8
 
 
