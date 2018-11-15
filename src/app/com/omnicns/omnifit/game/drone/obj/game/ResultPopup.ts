@@ -82,9 +82,6 @@ export class ResultPopup extends ObjDrone {
       context.save();
       let fontPT = 40;
       context.strokeStyle = '#392B25';
-      // context.shadowColor = '#000000';
-      // context.shadowOffsetX = -1;
-      // context.shadowOffsetY = -1;
       context.font = fontPT + 'pt Multicolore';
       context.textAlign = 'center';
       context.textBaseline = 'middle';
@@ -92,32 +89,13 @@ export class ResultPopup extends ObjDrone {
       context.lineWidth = 2;
       context.fillText(this.hostResult.score.toLocaleString(), popup_x + 180, popup_y + 322);
       context.strokeText(this.hostResult.score.toLocaleString(), popup_x + 180, popup_y + 322);
-      // fontPT = 18;
-      // context.font = 'bold  ' + fontPT + 'pt Multicolore';
-      // context.textAlign = 'center';
-      // context.textBaseline = 'middle';
-      // context.fillStyle = '#F9DFD4';
-      // context.lineWidth = 1;
-      // // console.log(this.hostResult)
-      // context.fillText('내등수 : ' + this.hostResult.rank.toLocaleString() + '등', this.x, this.y + 13);
-      // context.strokeText('내등수 : ' + this.hostResult.rank.toLocaleString() + '등', this.x, this.y + 13);
       context.restore();
-      // const hostRankImg = this.getRankImg(this.hostResult.rank);
-      // const hostRank_x = this.x - (hostRankImg.width / 2) - 75;
-      // const hostRank_y = this.y - (hostRankImg.height / 2) - 2;
-      // context.drawImage(hostRankImg, hostRank_x, hostRank_y);
 
       const userResults = this.userResults || new Array<UserResult>() ;
-      //console.log(userResults);
       const wjumpSize = (this.result_popup_bgImg.width - 65) / (userResults.length + 1);
       let wjump = 0;
-      // popup_x
-      // popup_y
       userResults.forEach( (it) => {
-        // const hostRank_x = this.x - (hostRankImg.width / 2) - 75;
-        // const hostRank_y = this.y - (hostRankImg.height / 2) - 2;
         wjump += wjumpSize;
-        //console.log(wjump);
         if (it.uuid === this.hostResult.uuid) {
           //result characte
           const result_characterImg = this.resultCharacte(it.name);
@@ -135,23 +113,14 @@ export class ResultPopup extends ObjDrone {
         }
 
         context.save();
-        // context.strokeStyle = '#392B25';
-        // context.shadowColor = '#000000';
-        // context.shadowOffsetX = -1;
-        // context.shadowOffsetY = -1;
         fontPT = 10;
         context.font = fontPT + 'pt Multicolore';
         context.textAlign = 'center';
         context.textBaseline = 'middle';
         context.fillStyle = '#FFFFFF';
-        // context.lineWidth = 1;
         context.fillText(it.score.toLocaleString(), popup_x + wjump + 36, popup_y + 382 + 56);
-        // context.strokeText(it.score.toLocaleString(), popup_x + wjump + 36, popup_y + 322 + 51);
         context.restore();
       });
-      // context.strokeRect(this.hitArea.left, this.hitArea.top, this.hitArea.width(), this.hitArea.height());
-      // context.strokeRect(this.hitExitArea.left, this.hitExitArea.top, this.hitExitArea.width(), this.hitExitArea.height());
-      // context.strokeRect(this.hitReStartArea.left, this.hitReStartArea.top, this.hitReStartArea.width(), this.hitReStartArea.height());
     }
 
   }
@@ -181,6 +150,7 @@ export class ResultPopup extends ObjDrone {
       if (!ValidUtil.isNullOrUndefined(this.hitExitArea) && this.hitExitArea.contains(event.offsetX, event.offsetY) ) {
         DeviceManager.getInstance().onDestroy();
         this.stage.onDestroy();
+        DroneStageManager.getInstance().goStage(0);
       }
       if (!ValidUtil.isNullOrUndefined(this.hitReStartArea) && this.hitReStartArea.contains(event.offsetX, event.offsetY) ) {
         DroneStageManager.getInstance().goStage(1);

@@ -13,7 +13,7 @@
 2. ng server -o --host ip --port port
 
 ## build
-1. ng build  --base-href "."  or ng build --prod --env=prod --output-path=dist-prod/
+1. ng build  --base-href "."  or ng build --prod --env=prod --output-path=dist-prod/ --base-href "."
 2. ./node_modules/@angular/cli/bin/ng build -w -op ../resources/webapp --dev
 
 ## device 뇌파 측정기
