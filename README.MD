@@ -1,6 +1,8 @@
-득도 nirvana html game
-=====================
 뇌파 직중력을 이용한 게임
+=====================
+#### 득도 html canvas game
+
+<br/><br/>
 
 ## run
 1. npm install
@@ -23,7 +25,7 @@
 4. Bluetooth 연결
 5. 게임 실행
     
-## tip
+### tip
 * angular : https://cli.angular.io
 * reactivex : http://reactivex.io
 
@@ -51,11 +53,11 @@ document, review
     }
   ```
   옴니핏브레인 장비에서 웹뷰를 통해 집중력값을 callJS 함수콜 해준다.  
-  **장비 -> app -> 뇌파 측정 -> 집중력값 추출 -> webView -> callJS 함수 호출 -> event 발생**   
+  **장비(bluetooth) -> app -> 뇌파 측정(집중력) -> webView(callJS 함수 호출) -> event**   
 
 <br/>
 
-* app <-> html와 데이터 통신  
+* ***app <-> 게임 데이터 통신***  
   src/app/omnicns/omnifit/drive/DeviceManager.ts  
   뇌파(집중도) 이벤트 받아올 Observable 생성 및 subscribe
   ```
@@ -70,7 +72,7 @@ document, review
 
 <br/>
 
-* 리소스 관리자  
+* ***리소스 관리자***  
   src/app/com/omnicns/omnifit/game/drone/DroneResourceManager.ts
   ```
   export class DroneResourceManager implements LifeCycle {
@@ -81,7 +83,7 @@ document, review
 
 <br/>
 
-* 게임 스테이지 관리자  
+* ***게임 스테이지 관리자***  
   src/app/com/omnicns/omnifit/game/drone/DroneStageManager.ts  
   게임 스테이지 이동, 등록, 삭제, 데이터 전송
   ```
@@ -109,7 +111,7 @@ document, review
   ```
 <br/>
   
-* 게임 스테이지 추상클래스  
+* ***게임 스테이지 추상클래스***  
   src/app/com/omnicns/omnifit/game/drone/stage/DroneStage.ts
   ```
   export abstract class DroneStage extends Stage implements LifeCycle, ViewInterface {
@@ -127,7 +129,7 @@ document, review
   
 <br/>
 
-* 게임 오브젝트 추상클래스  
+* ***게임 오브젝트 추상클래스***  
   src/app/com/omnicns/omnifit/game/drone/obj/ObjDrone.ts  
   ```
   export abstract class ObjDrone extends ObjImg implements LifeCycle, ViewInterface {
@@ -161,19 +163,37 @@ document, review
 
 
 * 공통 lib (lib-typescript : https://github.com/visualkhh/lib-typescript.git)  
-  유틸 종류    
-    1. collection
-    2. convert
-    3. data
-    4. date
-    5. event
-    6. graphics
-    7. math
-    8. node
-    9. obj
-    10. random
-    11. regex
-    12. stage
-    13. string
-    14. valid
-    15. ....
+
+* ***게임 시작 (app angular component)***  
+  src/app/app.component.ts
+  1. 초기화 및 게임 셋팅
+    ```
+    @Component({
+      selector: 'app-root',
+      templateUrl: './app.component.html',
+      styleUrls: ['./app.component.css'],
+    })
+    export class AppComponent implements OnInit, AfterViewInit {
+     ...
+      constructor(private hostElement: ElementRef, private renderer: Renderer2) {
+      }
+    
+      ngOnInit(): void {
+       ...
+      }
+    
+      @HostListener('window:resize', ['$event'])
+      onResize(event) {
+       ...
+      }
+    
+      ngAfterViewInit(): void {
+        //game initialize ...
+        //resource initialize ...
+        //stage initialize ...
+        //object initialize ...
+      }
+    }
+    ```
+
+visualkhh@gmail.com
