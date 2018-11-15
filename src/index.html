@@ -23,22 +23,11 @@
 </body>
 <script type="text/javascript">
   function callJS(data) {
-    // document.getElementById("con").value=data;
-    // // Add an event listener
-    // Create the event
-    // var event = new CustomEvent('omnifit-concentration', {'detail': {'name':'omnifit', 'data': Number(data)} });
-    // document.getElementById('callJS').value(data);
     var event = new CustomEvent('omnifit-headset-concentration', {'detail': Number(data)});
     // Dispatch/Trigger/Fire the event
     var a = window.dispatchEvent(event);
     console.log("callJS "+data+"-=--"+a);
   }
-
-  // window.addEventListener("omnifit-concentration", function(e) {
-  //   console.log(e.detail); // Prints "Example of an event"
-  //   e.preventDefault()
-  // });
-
 
   var dummyInterval = undefined;
   function dummy(interval) {

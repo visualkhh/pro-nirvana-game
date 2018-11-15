@@ -1,36 +1,179 @@
-# Drone
+득도 nirvana html game
+=====================
+뇌파 직중력을 이용한 게임
+
+## run
 1. npm install
-4. ng server -o --host ip --port port
-5. https://cli.angular.io/
+2. ng server -o --host ip --port port
 
-
-
-#ng build
+## build
 1. ng build  --base-href "."  or ng build --prod --env=prod --output-path=dist-prod/
 2. ./node_modules/@angular/cli/bin/ng build -w -op ../resources/webapp --dev
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.6.3.
+## device 뇌파 측정기
+1. 옴니핏브레인(omnifitBrain)
+    * omnifitbrain : http://brain.omnifit.co.kr
 
-## Development server
+## android app build
+1. apk download
+2. 게임 삽입
+    1. ng build 
+    2. /storage/_brain/index.html 넣기
+3. app 실행
+4. Bluetooth 연결
+5. 게임 실행
+    
+## tip
+* angular : https://cli.angular.io
+* reactivex : http://reactivex.io
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-## Code scaffolding
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+<br/><br/><br/><br/><br/>
 
-## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+document, review
+================
+## project 구성
+* git submodule (lib-typescript : https://github.com/visualkhh/lib-typescript.git)
+  ``` 
+  git submodule init
+  git submodule update
+  ```
 
-## Running unit tests
+## source
+* 뇌파(집중력)값 이벤트  
+  src/index.htm
+  ```
+    function callJS(data) {
+      var event = new CustomEvent('omnifit-headset-concentration', {'detail': Number(data)});
+      window.dispatchEvent(event);
+    }
+  ```
+  옴니핏브레인 장비에서 웹뷰를 통해 집중력값을 callJS 함수콜 해준다.  
+  **장비 -> app -> 뇌파 측정 -> 집중력값 추출 -> webView -> callJS 함수 호출 -> event 발생**   
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+<br/>
 
-## Running end-to-end tests
+* app <-> html와 데이터 통신  
+  src/app/omnicns/omnifit/drive/DeviceManager.ts  
+  뇌파(집중도) 이벤트 받아올 Observable 생성 및 subscribe
+  ```
+    private constructor() {
+      this._headsetConcentrationObservable = Observable.fromEvent(window, DeviceManager.EVENT_OMNIFIT_HEADSET_CONCENTRATION).map((event: CustomEvent) => Number(event.detail) );
+    }
+    ...
+    public headsetConcentrationSubscribe(next?: (value: number) => void, error?: (error: any) => void, complete?: () => void): Subscription {
+      return this._headsetConcentrationObservable.subscribe(next, error, complete);
+    }
+  ```
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+<br/>
 
-## Further help
+* 리소스 관리자  
+  src/app/com/omnicns/omnifit/game/drone/DroneResourceManager.ts
+  ```
+  export class DroneResourceManager implements LifeCycle {
+  ...
+  }
+  ```
+  1. 리소스 등록 및 사용 Map으로 관리
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+<br/>
+
+* 게임 스테이지 관리자  
+  src/app/com/omnicns/omnifit/game/drone/DroneStageManager.ts  
+  게임 스테이지 이동, 등록, 삭제, 데이터 전송
+  ```
+  public nextPosition(): number {
+    ...
+  }
+  public previousPosition(): number {
+    ...
+  }
+  public goStage(idx: number, data?: any): DroneStage {
+   ...
+  }
+  public nextStage(data?: any): DroneStage {
+    ...
+  }
+  public previousStage(data?: any): DroneStage {
+    ...
+  }
+  public pushStage(stage: DroneStage): void {
+   ...
+  }
+  public currentStage(): DroneStage {
+   ...
+  }
+  ```
+<br/>
+  
+* 게임 스테이지 추상클래스  
+  src/app/com/omnicns/omnifit/game/drone/stage/DroneStage.ts
+  ```
+  export abstract class DroneStage extends Stage implements LifeCycle, ViewInterface {
+  ...
+  }
+  ```
+  *  모든 스테이지는 DroneStage 추상클래스를 상속해야한다.  
+      1. canvas doubleBuffer
+      2. canvas redraw clock 관리
+      3. event 관리  
+      <br/><br/>
+  *  스테이지 종류    
+      1. 인트로 : src/app/com/omnicns/omnifit/game/drone/stage/DroneStageIntro.ts
+      2. 게임 : src/app/com/omnicns/omnifit/game/drone/stage/DroneStageGame.ts
+  
+<br/>
+
+* 게임 오브젝트 추상클래스  
+  src/app/com/omnicns/omnifit/game/drone/obj/ObjDrone.ts  
+  ```
+  export abstract class ObjDrone extends ObjImg implements LifeCycle, ViewInterface {
+  ...
+  }
+  ```
+  *  모든 게임 오브젝트는 ObjDrone 추상클래스를 상속해야한다.  
+      1. 이미지, 좌표 관리 (PointVector)
+          ```
+          export class PointVector {
+            private _x: number;
+            private _y: number;
+            private _z: number;
+            ...
+          }
+          ```
+      2. 라이플 사이클
+         ```
+          abstract onCreate(data?: any);
+          abstract onDestroy(data?: any);
+          abstract onPause(data?: any);
+          abstract onRestart(data?: any);
+          abstract onResume(data?: any);
+          abstract onStart(data?: any);
+          abstract onStop(data?: any);
+          abstract onDraw(CanvasRenderingContext2D): void;
+         ```
+         ![LifeCycle](http://www.ntu.edu.sg/home/ehchua/programming/android/images/Android_ActivityLifeCycle.png)
+
+<br/>
+
+
+* 공통 lib (lib-typescript : https://github.com/visualkhh/lib-typescript.git)  
+  유틸 종류    
+    1. collection
+    2. convert
+    3. data
+    4. date
+    5. event
+    6. graphics
+    7. math
+    8. node
+    9. obj
+    10. random
+    11. regex
+    12. stage
+    13. string
+    14. valid
+    15. ....

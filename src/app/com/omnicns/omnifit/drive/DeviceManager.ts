@@ -30,7 +30,6 @@ export class DeviceManager {
   private constructor() {
     this._headsetConcentrationObservable = Observable.fromEvent(window, DeviceManager.EVENT_OMNIFIT_HEADSET_CONCENTRATION).map((event: CustomEvent) => Number(event.detail) );
     Observable.fromEvent(window, DeviceManager.EVENT_OMNIFIT_WEBSOCKET_SEND).subscribe((event: CustomEvent) => {
-      console.log('mnifit-webSocket-send' + event);
       DroneStageManager.getInstance().webSocketSubject.next(event.detail);
     });
   }

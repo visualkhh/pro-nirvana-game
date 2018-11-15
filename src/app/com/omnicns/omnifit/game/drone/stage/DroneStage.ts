@@ -70,17 +70,6 @@ export abstract class DroneStage extends Stage implements LifeCycle, ViewInterfa
   get objs(): ObjDrone[] {
     return this._objs.sort((n1, n2) => (n1.z > n2.z ? 1 : -1));
   }
-  // get objsAll(): ObjDrone[] {
-  //   return this._objs.concat(DroneStageManager.getInstance().objs).sort((n1, n2) => (n1.z > n2.z ? 1 : -1));
-  // }
-  // drawObjsAndFlush(context: CanvasRenderingContext2D, canvas?: HTMLCanvasElement): void {
-  //   this.objs.forEach((it) => it.onDraw(context));
-  //   this.flushCanvas(canvas);
-  // }
-  // drawObjsAllAndFlush(context: CanvasRenderingContext2D, canvas?: HTMLCanvasElement): void {
-  //   this.objsAll.forEach((it) => it.onDraw(context));
-  //   this.flushCanvas(canvas);
-  // }
   removeObjOnStopDestory(obj: ObjDrone): void {
      CollectionUtil.removeArrayItem(this._objs, obj, (it) => {
        it.onStop();

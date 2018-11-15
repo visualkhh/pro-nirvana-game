@@ -34,7 +34,7 @@ export class DroneStageManager extends DroneStage {
         this._webSocket.onerror = obs.error.bind(obs);
         this._webSocket.onclose = obs.complete.bind(obs);
         //return this._webSocket.close.bind(this._webSocket);
-      });
+    });
     const observer = {
       next: (data: any) => {
         if (this._webSocket.readyState === WebSocket.OPEN) {
@@ -120,7 +120,6 @@ export class DroneStageManager extends DroneStage {
   }
 
   onStart(data?: any): void {
-    // this.clockSubscription = this.clockIntervalSubscribe((date: number) => this.onDraw());
     this.objs.forEach((it) => it.onStart());
     this.currentStage().onStart(data);
   }
@@ -140,7 +139,6 @@ export class DroneStageManager extends DroneStage {
     this.objs.forEach((it) => it.onResume());
     this.currentStage().onStop(data);
     if (!ValidUtil.isNullOrUndefined(this._webSocketSubject)) { this._webSocketSubject.unsubscribe(); }
-    // if (!ValidUtil.isNullOrUndefined(this.clockSubscription)) { this.clockSubscription.unsubscribe(); }
   }
   onDestroy(data?: any) {
     this.stages.forEach((it) => it.onDestroy(data));
@@ -161,11 +159,6 @@ export class DroneStageManager extends DroneStage {
       }
       return 0;
     });
-    // console.log(r);
     return r;
-    // return this.objs.map((it) => {
-    //   it.stage = stage;
-    //   return it;
-    // });
   }
 }
