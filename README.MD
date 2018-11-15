@@ -6,8 +6,13 @@
 2. reactivex
 3. typescript
 4. html
-<br/><br/>
+<br/><br/>  
+youtube  
+[![Alt text](https://img.youtube.com/vi/fOx0XzVCPc8/1.jpg)](https://www.youtube.com/watch?v=fOx0XzVCPc8)  
+https://www.youtube.com/watch?v=fOx0XzVCPc8
 
+
+뇌파 집중력 게임 만들기
 ## run
 1. npm install
 2. ng server -o --host ip --port port
