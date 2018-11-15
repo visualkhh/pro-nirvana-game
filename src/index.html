@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <title>nirvana</title>
+  <base href="/">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    html, body {
+      width:  100%;
+      height: 100%;
+      margin: 0px;
+      overflow:hidden;
+      background-color: #2b2b2b;
+    }
+  </style>
+
+</head>
+<body>
+  <!--<input type="text" id="callJS">-->
+  <app-root></app-root>
+</body>
+<script type="text/javascript">
+  function callJS(data) {
+    // document.getElementById("con").value=data;
+    // // Add an event listener
+    // Create the event
+    // var event = new CustomEvent('omnifit-concentration', {'detail': {'name':'omnifit', 'data': Number(data)} });
+    // document.getElementById('callJS').value(data);
+    var event = new CustomEvent('omnifit-headset-concentration', {'detail': Number(data)});
+    // Dispatch/Trigger/Fire the event
+    var a = window.dispatchEvent(event);
+    console.log("callJS "+data+"-=--"+a);
+  }
+
+  // window.addEventListener("omnifit-concentration", function(e) {
+  //   console.log(e.detail); // Prints "Example of an event"
+  //   e.preventDefault()
+  // });
+
+
+  var dummyInterval = undefined;
+  function dummy(interval) {
+    if(!interval){
+      interval = 2000;
+    }
+    dummyStop();
+    dummyInterval = setInterval(function(){
+      var max = 10;
+      var min = 0;
+      var data = Math.floor(Math.random() * (max - min)) + min;
+      var event = new CustomEvent('omnifit-headset-concentration', {'detail': Number(data)});
+      var a = window.dispatchEvent(event);
+      console.log("dummy "+data+"  "+a);
+    },interval);
+  }
+  function dummyStop() {
+    if(dummyInterval){
+      clearInterval(dummyInterval);
+    }
+  }
+  function wsSend(obj) {
+    var event = new CustomEvent('omnifit-webSocket-send', {'detail': obj});
+    var a = window.dispatchEvent(event);
+    console.log("wsSend "+obj+"  "+a);
+  }
+  function wsObserver() {
+    var obj = {action: 'profile', method: 'put', body: {host: 'observer'}};
+    var event = new CustomEvent('omnifit-webSocket-send', {'detail': obj});
+    var a = window.dispatchEvent(event);
+    console.log("wsObserver "+obj+"  "+a);
+  }
+
+
+  function onCreate(data) {
+    console.log('app->web call onCreate');
+    window.dispatchEvent(new CustomEvent('omnifit-onCreate', {'detail': data}));
+
+  }
+  function onStart(data) {
+    console.log('app->web call onStart');
+    window.dispatchEvent(new CustomEvent('omnifit-onStart', {'detail': data}));
+
+  }
+  function onResume(data) {
+    console.log('app->web call onResume');
+    window.dispatchEvent(new CustomEvent('omnifit-onResume', {'detail': data}));
+
+  }
+  function onRestart(data) {
+    console.log('oapp->web call nRestart');
+    window.dispatchEvent(new CustomEvent('omnifit-onRestart', {'detail': data}));
+
+  }
+  function onPause(data) {
+    console.log('app->web call onPause');
+    window.dispatchEvent(new CustomEvent('omnifit-onPause', {'detail': data}));
+
+  }
+  function onStop(data) {
+    console.log('app->web call onStop');
+    window.dispatchEvent(new CustomEvent('omnifit-onStop', {'detail': data}));
+
+  }
+  function onDestroy(data) {
+    console.log('oapp->web call nDestroy');
+    window.dispatchEvent(new CustomEvent('omnifit-onDestroy', {'detail': data}));
+
+  }
+
+</script>
+
+</html>

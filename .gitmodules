@@ -1,0 +1,4 @@
+[submodule "lib-typescript"]
+	path = lib-typescript
+	url = https://github.com/visualkhh/lib-typescript.git
+	branch = master
