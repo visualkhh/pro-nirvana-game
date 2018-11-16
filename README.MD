@@ -23,7 +23,7 @@ https://www.youtube.com/watch?v=fOx0XzVCPc8
 
 ## device 뇌파 측정기
 1. 옴니핏브레인(omnifitBrain)
-    * omnifitbrain : http://brain.omnifit.co.kr
+    * omnifitbrain : <http://brain.omnifit.co.kr/?ref=github>
 
 ## android app build
 1. apk download
