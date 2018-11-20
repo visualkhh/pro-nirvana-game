@@ -19,13 +19,19 @@ https://www.youtube.com/watch?v=fOx0XzVCPc8
 
 
 뇌파 집중력 게임 만들기
-## run
+## server run
+* typescript build
+  * tsc -W
+* run
+  * node index.js
+
+## client run
 1. npm install
 2. ng server -o --host ip --port port
 
-## build
-1. ng build  --base-href "."  or ng build --prod --env=prod --output-path=dist-prod/ --base-href "."
-2. ./node_modules/@angular/cli/bin/ng build -w -op ../resources/webapp --dev
+* build
+    1. ng build  --base-href "."  or ng build --prod --env=prod --output-path=dist-prod/ --base-href "."
+    2. ./node_modules/@angular/cli/bin/ng build -w -op ../resources/webapp --dev
 
 ## device 뇌파 측정기
 1. 옴니핏브레인(omnifitBrain)
