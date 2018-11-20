@@ -1,12 +1,15 @@
-뇌파 집중력을 이용한 게임
+뇌파 집중력을 이용한 게임 온라인 멀티 게임
 =====================
-#### 득도 html canvas game
+#### 득도 html canvas game 
 사용기술
 1. angular
 2. reactivex
 3. typescript
 4. html
+5. websocket server
+
 <br/><br/>  
+
 youtube  
 [![Alt text](https://img.youtube.com/vi/fOx0XzVCPc8/0.jpg)](https://www.youtube.com/watch?v=fOx0XzVCPc8)  
 https://www.youtube.com/watch?v=fOx0XzVCPc8
@@ -52,9 +55,9 @@ document, review
   git submodule update
   ```
 
-## source
+## client source
 * 뇌파(집중력)값 이벤트  
-  src/index.htm
+  client/src/index.htm
   ```
     function callJS(data) {
       var event = new CustomEvent('omnifit-headset-concentration', {'detail': Number(data)});
@@ -67,7 +70,7 @@ document, review
 <br/>
 
 * ***app <-> 게임 데이터 통신***  
-  src/app/omnicns/omnifit/drive/DeviceManager.ts  
+  client/src/app/omnicns/omnifit/drive/DeviceManager.ts  
   뇌파(집중도) 이벤트 받아올 Observable 생성 및 subscribe
   ```
     private constructor() {
@@ -82,7 +85,7 @@ document, review
 <br/>
 
 * ***리소스 관리자***  
-  src/app/com/omnicns/omnifit/game/drone/DroneResourceManager.ts
+  client/src/app/com/omnicns/omnifit/game/drone/DroneResourceManager.ts
   ```
   export class DroneResourceManager implements LifeCycle {
   ...
@@ -93,7 +96,7 @@ document, review
 <br/>
 
 * ***게임 스테이지 관리자***  
-  src/app/com/omnicns/omnifit/game/drone/DroneStageManager.ts  
+  client/src/app/com/omnicns/omnifit/game/drone/DroneStageManager.ts  
   게임 스테이지 이동, 등록, 삭제, 데이터 전송
   ```
   public nextPosition(): number {
@@ -121,7 +124,7 @@ document, review
 <br/>
   
 * ***게임 스테이지 추상클래스***  
-  src/app/com/omnicns/omnifit/game/drone/stage/DroneStage.ts
+  client/src/app/com/omnicns/omnifit/game/drone/stage/DroneStage.ts
   ```
   export abstract class DroneStage extends Stage implements LifeCycle, ViewInterface {
   ...
@@ -139,7 +142,7 @@ document, review
 <br/>
 
 * ***게임 오브젝트 추상클래스***  
-  src/app/com/omnicns/omnifit/game/drone/obj/ObjDrone.ts  
+  client/src/app/com/omnicns/omnifit/game/drone/obj/ObjDrone.ts  
   ```
   export abstract class ObjDrone extends ObjImg implements LifeCycle, ViewInterface {
   ...
@@ -170,11 +173,8 @@ document, review
 
 <br/>
 
-
-* 공통 lib (lib-typescript : https://github.com/visualkhh/lib-typescript.git)  
-
 * ***게임 시작 (app angular component)***  
-  src/app/app.component.ts
+  client/src/app/app.component.ts
   1. 초기화 및 게임 셋팅
     ```
     @Component({
@@ -204,5 +204,54 @@ document, review
       }
     }
     ```
+
+# server source
+* ***서버 시작***  
+ server/index.ts
+    ```
+     const wss = new WebSocket.Server({ server });
+     ...
+     //start our server
+     server.listen(process.env.PORT || 8999, () => {
+         const info: AddressInfo = server.address() as AddressInfo;
+         console.log(`Server started on port ${info.port} :)`);
+     });
+    ```
+* ***Router***  
+  server/src/com/khh/omnifit/game/drone/DroneRouter.ts
+  ```
+    ...
+        request(request: ServerTelegram<any>): Telegram<any> {
+            const response = new Telegram<any>(request.action, request.method, undefined, TelegramStatusCode.OK, request.uuid);
+    
+            if ('rooms' === request.action && 'GET' === request.method.toUpperCase()) {//방목록
+                response.body = this.roomService.getRoomsUserDetail();
+            } else if ('rooms/detail' === request.action && 'GET' === request.method.toUpperCase()) {//방목록
+                response.body = this.roomService.getRoomUsersDetail(request.body);
+            } else if ('rooms/detail/send' === request.action && 'POST' === request.method.toUpperCase()) {//방목록
+                const rb = request.body as RoomSend;
+                response.body = this.roomService.sendRoom(rb.name, rb.msg);
+            } else if (request.action.indexOf('rooms/join') === 0 && 'PUT' === request.method.toUpperCase()) {//방들어가기
+                response.body = this.roomService.joinOrMakeWaiteRoom(request.ws);
+            } else if ('rooms' === request.action && 'PUT' === request.method.toUpperCase()) {//방 수정하기
+                response.body = this.roomService.putRoom(request);
+            } else if ('rooms' === request.action && 'DELETE' === request.method.toUpperCase()) {//방나가기 닫기
+                response.body = this.roomService.exitRoom(request.ws);
+            } else if ('profile' === request.action && 'GET' === request.method.toUpperCase()) {//프로필 보기
+                response.body = this.profileService.profile(request);
+            } else if ('profile' === request.action && 'POST' === request.method.toUpperCase()) {//프로필 수정
+                response.body = this.profileService.updateName(request);
+            } else if ('profile' === request.action && 'PUT' === request.method.toUpperCase()) {//프로필 수정
+                response.body = this.profileService.update(request);
+            } else {
+                response.status = TelegramStatusCode.NOTFOUNT;
+            }
+            return response;
+        }
+  ```
+
+# 공통 lib   
+* lib-typescript : https://github.com/visualkhh/lib-typescript.git
+
 
 visualkhh@gmail.com
