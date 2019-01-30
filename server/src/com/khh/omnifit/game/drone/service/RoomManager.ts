@@ -38,19 +38,18 @@ export class RoomManager {
             this.rooms.forEach((v, k) => {
                 //console.log(v.users.length + ' ' + v.startCnt + ' ' + v.endCnt)
                 if (v.users.length > 0 && v.startCnt > 0) {
-                    console.log('sssssssssss   ' + this.sessionManager.get(v.users[0]));
-                    if ('observer' !== this.sessionManager.get(v.users[0]).get('host')) {
-                        v.startCnt = (--v.startCnt);
+                    // console.log('sssssssssss   ' + this.sessionManager.get(v.users[0]));
+                    if (v.users.length > 1 || 'observer' !== this.sessionManager.get(v.users[0]).get('host')) {
+                        v.startCnt--;
                     }
                     v.status = RoomStatusCode.WAIT;
                 } else if (v.users.length > 0 && v.startCnt <= 0 && v.endCnt > 0) {
-                    console.log('zzzz   ' + this.sessionManager.get(v.users[0]));
                     console.log(v.uuid + ' : ' + v.endCnt);
                     // if (v.endCnt >= 60) {
                     //     this.sendRoomsDetail()
                     //     this.userHeadsetClear(v.users);
                     // }
-                    v.endCnt = (--v.endCnt);
+                    v.endCnt--;
                     v.status = RoomStatusCode.RUN;
                 } else if (v.users.length > 0 && v.startCnt <= 0 && v.endCnt <= 0) {
                     v.status = RoomStatusCode.END;
