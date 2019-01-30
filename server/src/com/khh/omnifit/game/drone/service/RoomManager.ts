@@ -14,11 +14,13 @@ import {Character} from '../../../../../../../../common/com/khh/omnifit/game/dro
 import {Info} from '../../../../../../../../common/com/khh/omnifit/game/drone/info/Info';
 import {ServerTelegram} from '../dto/ServerTelegram';
 import {SessionManager} from '../session/SessionManager';
+import {ProfileService} from './ProfileService';
 
 export class RoomManager {
 
     private static instance: RoomManager;
     private rooms = new Map<string, Room<WebSocket>>();
+    private sessionManager = SessionManager.getInstance();
     //singletone pattern
     //https://basarat.gitbooks.io/typescript/docs/tips/singleton.html
     static getInstance() {
@@ -36,7 +38,9 @@ export class RoomManager {
             this.rooms.forEach((v, k) => {
                 //console.log(v.users.length + ' ' + v.startCnt + ' ' + v.endCnt)
                 if (v.users.length > 0 && v.startCnt > 0) {
-                    v.startCnt = (--v.startCnt);
+                    if ('observer' !== this.sessionManager.get(v.users[0]).get('host')) {
+                        v.startCnt = (--v.startCnt);
+                    }
                     v.status = RoomStatusCode.WAIT;
                 } else if (v.users.length > 0 && v.startCnt <= 0 && v.endCnt > 0) {
                     console.log(v.uuid + ' : ' + v.endCnt);
