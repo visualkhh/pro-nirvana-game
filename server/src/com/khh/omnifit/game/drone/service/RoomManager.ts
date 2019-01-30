@@ -44,6 +44,7 @@ export class RoomManager {
                     }
                     v.status = RoomStatusCode.WAIT;
                 } else if (v.users.length > 0 && v.startCnt <= 0 && v.endCnt > 0) {
+                    console.log('zzzz   ' + this.sessionManager.get(v.users[0]));
                     console.log(v.uuid + ' : ' + v.endCnt);
                     // if (v.endCnt >= 60) {
                     //     this.sendRoomsDetail()
