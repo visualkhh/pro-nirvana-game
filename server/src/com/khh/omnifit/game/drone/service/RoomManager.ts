@@ -38,6 +38,7 @@ export class RoomManager {
             this.rooms.forEach((v, k) => {
                 //console.log(v.users.length + ' ' + v.startCnt + ' ' + v.endCnt)
                 if (v.users.length > 0 && v.startCnt > 0) {
+                    console.log('sssssssssss   ' + this.sessionManager.get(v.users[0]));
                     if ('observer' !== this.sessionManager.get(v.users[0]).get('host')) {
                         v.startCnt = (--v.startCnt);
                     }
