@@ -230,6 +230,9 @@ export class RoomManager {
         return room;
     }
     setNameInRoom(room: Room<WebSocket>) {
+        room.users.forEach( (it) => {
+            console.log('wwww  ' + SessionManager.getInstance().get(it).get('name'));
+        })
         //이름지정
         const useNicks = new Set<string>();
         this.getRoomUsersDetail(room.uuid).users.forEach((it) => {
