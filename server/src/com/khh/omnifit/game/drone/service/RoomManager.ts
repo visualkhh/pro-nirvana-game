@@ -79,7 +79,7 @@ export class RoomManager {
     }
     public userInfoClear(users: WebSocket[] | WebSocket) {
         for (const user of new Array<WebSocket>().concat(users)) {
-            SessionManager.getInstance().get(user).delete('name');
+            // SessionManager.getInstance().get(user).delete('name');
         }
     }
     public sendRoomsDetail() {
@@ -230,13 +230,13 @@ export class RoomManager {
         return room;
     }
     setNameInRoom(room: Room<WebSocket>) {
-        room.users.forEach( (it) => {
-            console.log('wwww  ' + SessionManager.getInstance().get(it).get('name'));
-        })
+        // room.users.forEach( (it) => {
+        //     console.log('wwww  ' + SessionManager.getInstance().get(it).get('name'));
+        // })
         //이름지정
         const useNicks = new Set<string>();
         this.getRoomUsersDetail(room.uuid).users.forEach((it) => {
-            console.log(it.get('name') + '      ddddddddd')
+            // console.log(it.get('name') + '      ddddddddd')
             if (!ValidUtil.isNullOrUndefined(it.get('name')) && UserHostCode.OBSERVER !== it.get('host')) {
                 useNicks.add(it.get('name'));
             }
