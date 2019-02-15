@@ -233,7 +233,7 @@ export class RoomManager {
         //이름지정
         const useNicks = new Set<string>();
         this.getRoomUsersDetail(room.uuid).users.forEach((it) => {
-            console.log(it + '      ddddddddd')
+            console.log(it.get('userAgent') + '      ddddddddd')
             if (!ValidUtil.isNullOrUndefined(it.get('name')) && UserHostCode.OBSERVER !== it.get('host')) {
                 useNicks.add(it.get('name'));
             }
