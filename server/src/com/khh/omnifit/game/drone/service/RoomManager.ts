@@ -79,7 +79,7 @@ export class RoomManager {
     }
     public userInfoClear(users: WebSocket[] | WebSocket) {
         for (const user of new Array<WebSocket>().concat(users)) {
-            // SessionManager.getInstance().get(user).delete('name');
+            SessionManager.getInstance().get(user).delete('name');
         }
     }
     public sendRoomsDetail() {
@@ -140,20 +140,6 @@ export class RoomManager {
         });
         return rRoom;
     }
-    // public getRoomUsersDetail(name: string, user?: WebSocket): Room<any> {
-    //     const gRoom = this.getRoom(name);
-    //     const rRoom = new Room<any>(gRoom.uuid, gRoom.status);
-    //     gRoom.users.forEach((it) => {
-    //         const map = new Map<string, any>(SessionManager.getInstance().get(it));
-    //         if (!ValidUtil.isNullOrUndefined(user) && user === it) {
-    //             map.set('host', 'host');
-    //         }else {
-    //             map.set('host', 'other');
-    //         }
-    //         rRoom.pushUser(map);
-    //     });
-    //     return rRoom;
-    // }
 
     public getRoomWebSocket(name: string): WebSocket[] {
         return (this.rooms.get(name) || new Room()).users;
@@ -184,7 +170,6 @@ export class RoomManager {
         const room = new Room<WebSocket>(uuid);
         room.status = RoomStatusCode.WAIT;
         this.rooms.set(uuid, room);
-        // console.log(ConvertUtil.iteratorToArray(this.rooms.keys()));
         return room;
     }
 
@@ -236,7 +221,6 @@ export class RoomManager {
         //이름지정
         const useNicks = new Set<string>();
         this.getRoomUsersDetail(room.uuid).users.forEach((it) => {
-            // console.log(it.get('name') + '      ddddddddd')
             if (!ValidUtil.isNullOrUndefined(it.get('name')) && UserHostCode.OBSERVER !== it.get('host')) {
                 useNicks.add(it.get('name'));
             }
